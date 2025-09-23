@@ -1,5 +1,22 @@
 # State System
 
+## Table of Contents
+- [Project Settings](#project-settings)
+  - [Inputs](#inputs)
+  - [Rendering](#rendering)
+- [Setting up AnimationSprite2D](#setting-up-animationsprite2d)
+  - [AnimatedSprite2D Node](#animatedsprite2d-node)
+  - [Adding Animation](#adding-animation)
+  - [Animation Configuration](#animation-configuration)
+  - [Animation Play](#animation-play)
+- [State Machine Architecture](#state-machine-architecture)
+  - [State Machine Overview](#state-machine-overview)
+  - [State Scripts Architecture](#state-scripts-architecture)
+  - [State Nodes Structure](#state-nodes-structure)
+  - [Player Integration](#player-integration)
+  - [State Transition Logic](#state-transition-logic)
+  - [Animation Integration](#animation-integration)
+
 ## Project Settings
 
 ### Inputs
