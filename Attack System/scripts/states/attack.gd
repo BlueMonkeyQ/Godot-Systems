@@ -1,7 +1,5 @@
 class_name AttackState extends PlayerState
 
-signal attack_animation_finished
-
 func enter() -> void:
 	if not player:
 		push_error( "Attack State: Player not found" )
@@ -21,7 +19,7 @@ func enter() -> void:
 	player.attack_system.execute_attack( "primary" )
 
 func update(_delta: float) -> void:
-	return
+	pass
 	
 func exit() -> void:
 	if player.attack_system.attack_executed.is_connected( _on_attack_executed ):
@@ -41,11 +39,11 @@ func setup_attack_hurtbox( attack_data ) -> void:
 
 func setup_slash_hurtbox( attack_angle: float ) -> void:
 	# Slash: width extends out from player
-	var cos_angle = cos(attack_angle)
-	var sin_angle = sin(attack_angle)
+	var cos_angle : float = cos(attack_angle)
+	var sin_angle : float = sin(attack_angle)
 	
-	var hitbox_width = 30
-	var hitbox_height = 60
+	var hitbox_width : float = 30.0
+	var hitbox_height : float = 60.0
 	
 	var rect_shape = player.hurtbox_2d.shape as RectangleShape2D
 	if rect_shape:
@@ -59,11 +57,11 @@ func setup_slash_hurtbox( attack_angle: float ) -> void:
 
 func setup_thrust_hurtbox( attack_angle: float ) -> void:
 	# Thrust: length extends out from player
-	var cos_angle = cos(attack_angle)
-	var sin_angle = sin(attack_angle)
+	var cos_angle : float = cos(attack_angle)
+	var sin_angle : float = sin(attack_angle)
 	
-	var hitbox_width = 60
-	var hitbox_height = 30
+	var hitbox_width : float = 60.0
+	var hitbox_height : float = 30.0
 	
 	var rect_shape = player.hurtbox_2d.shape as RectangleShape2D
 	if rect_shape:
@@ -80,7 +78,7 @@ func _on_attack_executed( attack_data : Dictionary ):
 		push_warning( "Attack State: Attack Data is empty" )
 		return
 	
-	var animation_name = attack_data.get( "animation", "idle" )
+	var animation_name : String = attack_data.get( "animation", "idle" )
 	player.animation_controller.update_animation( animation_name )
 	if not player.animated_sprite_2d.animation_finished.is_connected( _on_attack_animation_finished ):
 		player.animated_sprite_2d.animation_finished.connect( _on_attack_animation_finished )

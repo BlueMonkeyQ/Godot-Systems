@@ -25,6 +25,11 @@
   - [Hitbox Types](#hitbox-types)
   - [Dynamic Positioning](#dynamic-positioning)
   - [Collision Management](#collision-management)
+- [Collision Layers and Masks](#collision-layers-and-masks)
+  - [Godot Physics System Overview](#godot-physics-system-overview)
+  - [Hurtbox Configuration](#hurtbox-configuration)
+  - [Detection Logic](#detection-logic)
+  - [Integration with Attack System](#integration-with-attack-system)
 - [Signal System](#signal-system)
   - [Attack Executed Signal](#attack-executed-signal)
   - [Component Communication](#component-communication)
@@ -310,6 +315,68 @@ The hitbox system manages collision states throughout the attack:
 1. **Pre-Attack**: Hitbox disabled and invisible
 2. **During Attack**: Hitbox enabled, visible, and monitoring collisions
 3. **Post-Attack**: Hitbox disabled and hidden until next attack
+
+## Collision Layers and Masks
+
+### Godot Physics System Overview
+
+Godot's collision system uses layers and masks to determine which objects can interact with each other:
+
+* **Collision Layer**: Defines which layer(s) an object exists on
+* **Collision Mask**: Defines which layer(s) an object can detect/interact with
+* **Layer Numbers**: 32 available layers (1-32) that can be named for clarity
+
+### Hurtbox Configuration
+
+The `Hurtbox` Area2D node uses specific collision settings to detect valid targets:
+
+```gd
+# Hurtbox collision configuration in scene
+# Layer: Player Attack (Layer 2)
+# Mask: Enemy (Layer 3), Environment (Layer 4)
+```
+
+**Layer Assignment:**
+* **Layer 1**: Player/Character bodies
+* **Layer 2**: Player attack hitboxes
+* **Layer 3**: Enemy bodies and hurtboxes
+* **Layer 4**: Interactive environment objects
+
+### Detection Logic
+
+The collision system ensures proper attack targeting:
+
+```gd
+func OnCollision(_area: Area2D) -> void:
+    # Only triggers when Hurtbox (Layer 2) detects objects on Mask layers (3, 4)
+    # Prevents self-collision and friendly fire
+    pass
+```
+
+**Collision Rules:**
+1. **Player attacks** (Layer 2) can hit **enemies** (Layer 3)
+2. **Player attacks** (Layer 2) can hit **environment** (Layer 4)
+3. **Player attacks** (Layer 2) cannot hit **player** (Layer 1)
+
+### Integration with Attack System
+
+The collision configuration works seamlessly with the attack execution flow:
+
+1. **Attack Initiated**: `Hurtbox` monitoring enabled in `AttackState`
+2. **Collision Detection**: Area2D detects objects on configured mask layers
+3. **Damage Processing**: `OnCollision` method processes valid targets
+4. **Attack Cleanup**: Monitoring disabled after attack completion
+
+```gd
+# Attack state enables collision detection
+player.hurtbox.monitoring = true
+player.hurtbox_2d.disabled = false
+
+# Collision system automatically filters valid targets
+# based on layer/mask configuration
+```
+
+This layer-based approach ensures attacks only affect intended targets while maintaining clean separation between different object types in the game world.
 
 ## Signal System
 

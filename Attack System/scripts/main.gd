@@ -31,11 +31,10 @@ func update_direction( x: float, y : float ) -> Vector2:
 func update_attack_direction() -> Vector2:
 	var mouse_pos : Vector2 = get_global_mouse_position()
 	var player_pos: Vector2 = global_position
-	attack_angle = (mouse_pos - player_pos).angle()
 	
 	var dx = mouse_pos.x - player_pos.x
 	var dy = mouse_pos.y - player_pos.y
-	var attack_angle = atan2(dy, dx)
+	attack_angle = atan2(dy, dx)
 	
 	if attack_angle < -PI * 3.0/4.0 or attack_angle > PI * 3.0/4.0:
 		attack_direction = Vector2.LEFT
