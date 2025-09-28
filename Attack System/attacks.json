@@ -1,0 +1,44 @@
+{
+	"melee": [
+		{
+			"name" : "Single Strike",
+			"sequence" : ["primary"],
+			"secondaryKey" : null,
+			"damageMult" : 1,
+			"effects" : {},
+			"hitboxType" : "slash",
+			"endCombo" : false,
+			"animation": "attack"
+		},
+		{
+			"name" : "Second Strike",
+			"sequence" : ["primary","primary"],
+			"secondaryKey" : null,
+			"damageMult" : 1,
+			"effects" : {},
+			"hitboxType" : "slash",
+			"endCombo" : false,
+			"animation": "attack"
+		},
+		{
+			"name" : "Third Strike",
+			"sequence" : ["primary","primary","primary"],
+			"secondaryKey" : null,
+			"damageMult" : 1,
+			"effects" : {},
+			"hitboxType" : "thrust",
+			"endCombo" : true,
+			"animation": "attack"
+		},
+		{
+			"name" : "Dash Strike",
+			"sequence" : ["primary"],
+			"secondaryKey" : "run",
+			"damageMult" : 1,
+			"effects" : {},
+			"hitboxType" : "thrust",
+			"endCombo" : true,
+			"animation": "attack"
+		}
+	]
+}

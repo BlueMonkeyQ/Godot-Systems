@@ -89,16 +89,16 @@ static var player: Player
 var state_machine: PlayerStateMachine
 
 func enter():
-    # Called when entering this state
-    pass
+	# Called when entering this state
+	pass
 
 func exit():
-    # Called when leaving this state
-    pass
+	# Called when leaving this state
+	pass
 
 func update(delta: float):
-    # Called every frame while in this state
-    pass
+	# Called every frame while in this state
+	pass
 ```
 
 Individual states implement specific behavior and state transitions.
@@ -117,9 +117,9 @@ Main (CharacterBody2D)
 ├── AnimatedSprite2D
 ├── Camera2D
 └── State Machine (Node)
-    ├── Idle (Node)
-    ├── Walk (Node)
-    └── Run (Node)
+	├── Idle (Node)
+	├── Walk (Node)
+	└── Run (Node)
 ```
 
 Each state node has its corresponding script attached that inherits from `PlayerState`.
@@ -144,8 +144,8 @@ main.gd
 @onready var animation_controller = preload("res://State System/scripts/animations.gd").new()
 
 func _ready():
-    animation_controller.player = self
-    state_machine.start( "idle" )
+	animation_controller.player = self
+	state_machine.start( "idle" )
 
 func _physics_process(_delta):
 	move_and_slide()
@@ -179,10 +179,10 @@ walk.gd
 var direction = Input.get_vector( "left", "right", "up", "down" )
 
 if direction == Vector2.ZERO:
-    state_machine.change_state( "idle" )
+	state_machine.change_state( "idle" )
 
 elif Input.is_action_pressed( "run" ):
-    state_machine.change_state( "run" )
+	state_machine.change_state( "run" )
 ```
 
 ### Animation Integration
@@ -199,6 +199,6 @@ animations.gd
 # Animation controller combines state and direction
 
 func update_animation( state: String ) -> void:
-    var direction = get_direction()
-    player.animated_sprite_2d.play( state + "-" + direction )
+	var direction = get_direction()
+	player.animated_sprite_2d.play( state + "-" + direction )
 ```
